@@ -32,6 +32,11 @@ android {
         }
     }
 }
+configurations.all {
+    resolutionStrategy {
+        force 'com.android.support:support-annotations:27.1.1'
+    }
+}
 
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
@@ -49,4 +54,14 @@ dependencies {
     testImplementation 'junit:junit:4.12'
     compile project(path: ':jokelib')
     compile project(path: ':jokedisplayer')
+
+    androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
+        exclude group: 'com.android.support', module: 'support-annotations'
+    })
+
+    // add this for intent mocking support
+    androidTestCompile 'com.android.support.test.espresso:espresso-intents:2.2.2'
+
+    // add this for webview testing support
+    androidTestCompile 'com.android.support.test.espresso:espresso-web:2.2.2'
 }
