@@ -25,12 +25,33 @@ android {
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
 
+    lintOptions {
+        checkReleaseBuilds false
+    }
+
     buildTypes {
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
+
+    flavorDimensions "tier"
+
+    productFlavors {
+        free {
+            applicationId "com.udacity.gradle.builditbigger"
+            versionName "1.0-free"
+            buildConfigField "boolean", "PAID_NO_ADS", "false"
+        }
+
+        paid {
+            applicationId "com.udacity.gradle.builditbigger"
+            versionName "1.0-paid"
+            buildConfigField "boolean", "PAID_NO_ADS", "true"
+        }
+    }
+    sourceSets { main { java.srcDirs = ['src/main/java', 'src/paid/java'] } }
 }
 configurations.all {
     resolutionStrategy {
