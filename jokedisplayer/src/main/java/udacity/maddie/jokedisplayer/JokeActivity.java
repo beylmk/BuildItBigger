@@ -8,6 +8,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.TextView;
+import android.widget.Toast;
 
 public class JokeActivity extends Activity {
 
@@ -20,9 +21,12 @@ public class JokeActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_joke);
 
-        joke = getIntent().getStringExtra(JOKE_ID);
-
-        TextView jokeTextView = findViewById(R.id.joke_text_view);
-        jokeTextView.setText(joke);
+        if (getIntent().hasExtra(JOKE_ID)) {
+            joke = getIntent().getStringExtra(JOKE_ID);
+            TextView jokeTextView = findViewById(R.id.joke_text_view);
+            jokeTextView.setText(joke);
+        } else {
+            Toast.makeText(this, Toast.LENGTH_LONG, R.string.trouble_getting_joke).show();
+        }
     }
 }
